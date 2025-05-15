@@ -1,0 +1,161 @@
+<!doctype html>
+
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Генеология для ЯРов</title>
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+		<style>
+			body {
+				display: flex;
+				flex-direction: column;
+				min-height: 100vh;
+				margin: 0;
+				overflow: hidden; /* Убираем скролл на всем документе */
+			}
+
+			header {
+				flex-shrink: 0; /* Запрещаем сжатие шапки */
+			}
+
+			main {
+				flex-grow: 1; /* Занимаем все доступное пространство */
+				display: flex;
+				flex-direction: column;
+				overflow: auto; /* Добавляем скролл только для основного содержимого */
+				padding: 20px 0;
+			}
+            .form-container {
+            margin-left: auto;
+    		margin-right: auto;
+            width: 90%;
+            max-width: 700px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            }
+            .input-group {
+                margin-bottom: 20px; /* Отступ между полями */
+            }
+            label {
+        	    margin-left: auto;
+    			margin-right: auto;
+                display: block;
+                margin-bottom: 8px;
+                font-weight: bold;
+                color: #333;
+            }
+            .hint {
+			   color: #888; /* Серый цвет для дополнительного текста */
+				font-weight: normal; /* Можно сделать не жирным */
+			}
+            input {
+                width: 100%;
+                padding: 12px 15px;
+                border: 1px solid #ddd;
+                border-radius: 20px !important;
+                font-size: 16px;
+                box-sizing: border-box;
+                transition: border-color 0.3s;
+            }
+
+            input:focus {
+                outline: none;
+                border-color: #A9A9A9;
+            }
+
+            .arrow-btn {
+                position: fixed; /* Фиксированное положение */
+                top: 50%; /* Посередине вертикали */
+                transform: translateY(-50%); /* Точное центрирование */
+
+                width: 55px;
+                height: 55px;
+                background: #A9A9A9; /* Цвет фона */
+                color: white;
+                border: none;
+                border-radius: 50%; /* Круглая форма */
+                font-size: 33px;
+                padding-bottom: 55px;
+                cursor: pointer;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень */
+                transition: all 0.3s; /* Плавные эффекты */
+            }
+
+            /* Левая кнопка */
+            .arrow-left {
+                left: 40px;
+            }
+
+            /* Правая кнопка */
+            .arrow-right {
+                right: 40px;
+            }
+
+            .arrow-btn:hover {
+                background: #808080; /* Цвет при наведении */
+                transform: translateY(-50%) scale(1.1); /* Увеличение */
+            }
+
+            .arrow-btn:active {
+                transform: translateY(-50%) scale(0.95); /* Эффект нажатия */
+            }
+		</style>
+	</head>
+
+
+	<body>
+		<header class="mb-4">
+      		<div class="d-flex justify-content-between align-items-center py-3">
+    	    	<h4 class="ms-4">Генеология для ЯРов</h4>
+        		<div class="d-flex gap-2 me-4">
+					<a class="btn btn-success" href="#" role="button">Зарегистрироваться</a>
+        	  		<a class="btn btn-light" href="#" role="button">Войти</a>
+       			</div>
+			</div>
+      		<hr class="my-0">
+    	</header>
+		<main>
+			<h2 style="text-align: center;">Язык 2</h2>
+            <div class="form-container">
+                <!-- Поле 1 -->
+                <div class="input-group">
+                    <label for="macrofamily">
+						макросемья <span class="hint">(если есть)</span>
+					</label>
+                    <input type="text" id="macrofamily" name="macrofamily" placeholder="">
+                </div>
+
+                <!-- Поле 2 -->
+                <div class="input-group">
+                    <label for="family">
+						семья <span class="hint">(если есть)</span>
+					</label>
+                    <input type="text" id="family" name="family" placeholder="">
+                </div>
+
+                <!-- Поле 3 -->
+                <div class="input-group">
+                    <label for="branch">
+						ветвь <span class="hint">(если есть)</span>
+					</label>
+                    <input type="text" id="branch" name="branch" placeholder="">
+                </div>
+
+                <!-- Поле 4 -->
+                <div class="input-group">
+                    <label for="group">
+						группа <span class="hint">(если есть)</span>
+					</label>
+                    <input type="text" id="group" name="group" placeholder="">
+                </div>
+            </div>
+    		<button class="arrow-btn arrow-left" onclick="window.location.href='https://example.com'">‹</button>
+			<button class="arrow-btn arrow-right" onclick="window.location.href='https://example.com'">›</button>
+		</main>
+
+	</body>
+
+
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Результаты теста</title>
+        		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <style>
+            body {
+		    	display: flex;
+		    	flex-direction: column;
+		    	min-height: 100vh;
+		    	margin: 0;
+		    	overflow: hidden;
+		    }
+
+		    header {
+		    	flex-shrink: 0;
+		    }
+
+		    main {
+		    	flex-grow: 1;
+		    	display: flex;
+		    	flex-direction: column;
+		    	justify-content: center;
+		    	overflow: auto;
+		    	padding: 20px 0;
+		    }
+
+            .result-container {
+                margin-left: auto;
+    		    margin-right: auto;
+    		    background-color: white;
+    		    border: 2px solid #818181;
+                border-radius: 80px;
+                padding: 50px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                text-align: center;
+                max-width: 500px;
+                width: 100%;
+            }
+
+            h1 {
+                color: #333;
+                margin-top: 0;
+            }
+
+            .score {
+                font-size: 24px;
+                font-weight: bold;
+                margin: 20px 0;
+                color: #2c3e50;
+            }
+
+            .btn {;
+                color: black;
+                padding: 10px 30px;
+                border: 1px solid #818181;
+                border-radius: 25px;
+                cursor: pointer;
+                font-size: 16px;
+                transition: background-color 0.3s;
+                display: inline-block;
+                width: auto;
+            }
+
+            .btn:hover {
+                background-color: #3498db;
+            }
+
+            .register-link {
+                display: block;
+                margin-top: 15px;
+                margin-bottom: 20px;
+                font-size: 13px;
+                color: #3498db;
+                text-decoration: underline;
+                cursor: pointer;
+                font-weight: bold;
+                transition: color 0.2s;
+            }
+
+            .register-link:hover {
+                color: #2980b9;
+            }
+        </style>
+    </head>
+<body>
+
+    <header class="mb-4">
+        <div class="d-flex justify-content-between align-items-center py-3">
+            <h4 class="ms-4">Генеология для ЯРов</h4>
+            <div class="d-flex gap-2 me-4">
+                <a class="btn btn-success" href="#" role="button">Зарегистрироваться</a>
+                <a class="btn btn-light" href="#" role="button">Войти</a>
+            </div>
+        </div>
+        <hr class="my-0">
+    </header>
+
+    <main>
+        <div class="result-container">
+            <h1>Ваш результат теста</h1>
+            <div class="score" id="score-display">Ваш результат: <span id="score">0</span>/10!</div>
+                    <a href="register.html" class="register-link">зарегистрируйтесь, чтобы сохранить результаты</a>
+            <a href="errors.html" class="btn">Посмотреть ошибки</a>
+        </div>
+    </main>
+
+    <script>
+        // Здесь можно добавить логику для получения реального результата
+        // Например, из URL-параметров или через запрос к серверу
+
+        // Пример: установка результата из URL-параметра
+        function getScoreFromUrl() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const score = urlParams.get('score');
+            if (score) {
+                document.getElementById('score').textContent = score;
+            }
+        }
+
+        // Вызываем функцию при загрузке страницы
+        window.onload = getScoreFromUrl;
+    </script>
+
+</body>
+</html>
