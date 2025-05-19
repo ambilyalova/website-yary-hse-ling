@@ -4,7 +4,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Генеология для ЯРов</title>
+		<title>Генеалогия для ЯРов</title>
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 		<style>
 			body {
@@ -25,6 +25,18 @@
 				flex-direction: column;
 				overflow: auto; /* Добавляем скролл только для основного содержимого */
 				padding: 20px 0;
+			}
+
+			.buttons-container {
+				display: flex;
+				justify-content: center;
+				flex-wrap: wrap;
+			}
+
+			.toast {
+				position: fixed;
+				bottom: 20px;
+				right: 20px;
 			}
 
             .form-container {
@@ -93,6 +105,70 @@
                 transform: translateY(-50%) scale(0.95); /* Эффект нажатия */
             }
 
+	        /* Стили для модального окна */
+    	    .modal-overlay {
+        	    display: none;
+            	position: fixed;
+	            top: 0;
+    	        left: 0;
+        	    width: 100%;
+            	height: 100%;
+	            background-color: rgba(0, 0, 0, 0.5);
+    	        z-index: 1000;
+        	    justify-content: center;
+            	align-items: center;
+        	}
+
+        	.modal-content {
+        	    background-color: white;
+        	    padding: 20px;
+        	    border-radius: 8px;
+        	    max-width: 500px;
+        	    width: 90%;
+        	    position: relative;
+        	    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        	}
+
+        	.close-btn {
+        	    position: absolute;
+        	    top: 10px;
+        	    right: 10px;
+        	    font-size: 20px;
+        	    cursor: pointer;
+        	    background: none;
+        	    border: none;
+        	    color: #777;
+        	}
+
+        	.close-btn:hover {
+        	    color: #333;
+        	}
+
+        	.modal-title {
+        	    font-size: 1.5em;
+        	    margin-bottom: 15px;
+        	    color: #333;
+        	}
+
+        	.modal-text {
+        	    margin-bottom: 20px;
+        	    color: #555;
+        	    line-height: 1.5;
+        	}
+
+        	.ok-btn {
+        	    background-color: #42bd6d;
+        	    color: white;
+        	    border: none;
+        	    padding: 10px 20px;
+        	    border-radius: 4px;
+        	    cursor: pointer;
+        	    font-size: 16px;
+        	}
+
+        	.ok-btn:hover {
+        	    background-color: #45a049;
+        	}
 		</style>
 	</head>
 
@@ -100,7 +176,7 @@
 	<body>
 		<header class="mb-4">
       		<div class="d-flex justify-content-between align-items-center py-3">
-    	    	<h4 class="ms-4">Генеология для ЯРов</h4>
+    	    	<h4 class="ms-4">Генеалогия для ЯРов</h4>
         		<div class="d-flex gap-2 me-4">
 					<a class="btn btn-success" href="#" role="button">Зарегистрироваться</a>
         	  		<a class="btn btn-light" href="#" role="button">Войти</a>
@@ -146,6 +222,48 @@
     		<button class="arrow-btn" onclick="window.location.href='https://example.com'">
     		    ›
     		</button>
+    		<!-- Модальное окно -->
+    		<div class="modal-overlay" id="infoModal">
+    		    <div class="modal-content">
+        		    <button class="close-btn" id="closeModal">&times;</button>
+        		    <h2 class="modal-title">Тестовый режим</h2>
+        		    <p class="modal-text">
+        		        Здесь необходимо вводить генеалогию десяти языков, как на тестах на паре.
+						Если у языка нет макросемьи/ветви/т.д., оставьте поле пустым. Разделение славянских
+						языков на восточные, западные и южные не учитывается.
+        		    </p>
+        		    <button class="ok-btn" id="okBtn">Окей!</button>
+    		    </div>
+    		</div>
+
+    		<script>
+    		    // Получаем элементы DOM
+    		    const modal = document.getElementById('infoModal');
+    		    const closeBtn = document.getElementById('closeModal');
+    		    const okBtn = document.getElementById('okBtn');
+
+    		    // Показываем модальное окно при загрузке страницы
+    		    window.addEventListener('load', function() {
+    		        modal.style.display = 'flex';
+    		    });
+
+    		    // Закрываем модальное окно при клике на крестик
+    		    closeBtn.addEventListener('click', function() {
+    		        modal.style.display = 'none';
+    		    });
+
+    		    // Закрываем модальное окно при клике на кнопку "Окей!"
+    		    okBtn.addEventListener('click', function() {
+    		        modal.style.display = 'none';
+    		    });
+
+    		    // Закрываем модальное окно при клике вне его области
+    		    modal.addEventListener('click', function(e) {
+    		        if (e.target === modal) {
+    		            modal.style.display = 'none';
+    		        }
+    		    });
+    		</script>
 		</main>
 
 	</body>
