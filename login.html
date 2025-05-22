@@ -105,46 +105,55 @@
 		</style>
 	</head>
 	<body>
-		<header class="mb-4">
-			<div class="d-flex justify-content-between align-items-center py-3">
-				<h4 class="ms-4">Генеалогия для ЯРов</h4>
-			</div>
-			<hr class="my-0">
-		</header>
+        <header class="mb-4">
+            <div class="d-flex justify-content-between align-items-center py-3">
+                <h4 class="ms-4">Генеалогия для ЯРов</h4>
+            </div>
+            <hr class="my-0">
+        </header>
 
-		<main>
+        <main>
             <h1 style="text-align: center;">Авторизация</h1>
-            <div class="form-container">
+
+
+            <form action="{{ url_for('login') }}" method="POST" class="form-container">
                 <!-- Поле 1 -->
                 <div class="input-group mb-3">
                     <label for="username">Имя пользователя/email:</label>
-                    <input type="text" id="username" name="username" placeholder="Введите имя или email">
+                    <input type="text" id="username" name="username" placeholder="Введите имя или email" required>
                 </div>
                 <!-- Поле 2 -->
                 <div class="input-group">
                     <label for="password">Пароль:</label>
-                    <input type="password" id="password" name="password" placeholder="Введите пароль" style="padding-right: 40px;">
+                    <input type="password" id="password" name="password" placeholder="Введите пароль"
+                           style="padding-right: 40px;" required>
                     <button class="password-toggle" id="togglePassword" type="button">
                         <i class="fas fa-eye"></i>
                     </button>
                 </div>
-            </div>
+                <!-- Ссылка на регистрацию -->
+                <div style="text-align: center; margin-top: 15px;">
+                    Нет аккаунта? <a href="{{ url_for('register') }}" style="color: #4CAF50;">Зарегистрируйтесь</a>
+                </div>
+            </form>
             <!-- Ссылка "Забыли пароль" -->
             <div class="forgot-password">
                 <a href="#" id="forgotPassword">Забыли пароль?</a>
             </div>
             <!-- Кнопка входа -->
             <div class="btn-container">
-                <button id="loginBtn" class="btn-login" disabled>Войти</button>
+                <button id="loginBtn" class="btn-login" type="submit" form="loginForm">Войти</button>
             </div>
-		</main>
-    <script>
+        </main>
+
+        <script>
             // Получаем элементы DOM
             const usernameInput = document.getElementById('username');
             const passwordInput = document.getElementById('password');
             const loginBtn = document.getElementById('loginBtn');
             const togglePassword = document.getElementById('togglePassword');
             const forgotPassword = document.getElementById('forgotPassword');
+            const loginForm = document.querySelector('form');
 
             // Функция проверки заполненности полей
             function checkInputs() {
@@ -172,6 +181,9 @@
             // Слушатели событий для полей ввода
             usernameInput.addEventListener('input', checkInputs);
             passwordInput.addEventListener('input', checkInputs);
+
+            // Проверка при загрузке страницы
+            checkInputs();
         </script>
-	</body>
+    </body>
 </html>
