@@ -7,6 +7,7 @@ from app.auth.routes import auth
 from app.flashcards.routes import flashcards
 from app.db_models import db, User
 from app.profile.routes import profile
+from app.test_mode.routes import test_mode
 
 
 def create_app():
@@ -46,6 +47,8 @@ def create_app():
     register_routes()
 
     app.register_blueprint(profile, url_prefix='/profile')
+
+    app.register_blueprint(test_mode, url_prefix='/test_mode')
 
     @app.route('/')
     def index():

@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+
+{% block content %}
+<main style="flex-grow: 1; display: flex; flex-direction: column; overflow: auto; padding: 20px 0;">
+    <h2 style="text-align: center;">{{ lang_name }}</h2>
+
+    <div class="form-container">
+        <form id="language-form">
+            <!-- Macrofamily -->
+            <div class="input-group">
+                <label for="macrofamily">
+                    макросемья <span class="hint">(если есть)</span>
+                </label>
+                <input type="text" id="macrofamily" name="macrofamily"
+                       value="{{ saved_answers.macrofamily or '' }}">
+            </div>
+
+            <!-- Family -->
+            <div class="input-group">
+                <label for="family">
+                    семья <span class="hint">(или изолят)</span>
+                </label>
+                <input type="text" id="family" name="family"
+                       value="{{ saved_answers.family or '' }}">
+            </div>
+
+            <!-- Branch -->
+            <div class="input-group">
+                <label for="branch">
+                    ветвь <span class="hint">(если есть)</span>
+                </label>
+                <input type="text" id="branch" name="branch"
+                       value="{{ saved_answers.branch or '' }}">
+            </div>
+
+            <!-- Group -->
+            <div class="input-group">
+                <label for="group">
+                    группа <span class="hint">(если есть)</span>
+                </label>
+                <input type="text" id="group" name="group"
+                       value="{{ saved_answers.group or '' }}">
+            </div>
+        </form>
+    </div>
+
+    <!-- Navigation tabs -->
+    <div class="language-nav">
+        {% for i in range(total_langs) %}
+        <a href="#" class="lang-tab {% if i == lang_num - 1 %}active{% endif %}"
+           onclick="navigateToLanguage({{ i }})">
+            {{ i + 1 }}
+        </a>
+        {% endfor %}
+    </div>
+
+    <!-- Navigation buttons (fixed position like in template) -->
+    {% if lang_num > 1 %}
+    <button class="arrow-btn arrow-left" onclick="navigateToLanguage({{ lang_num - 2 }})">‹</button>
+    {% endif %}
+
+    {% if lang_num < total_langs %}
+    <button class="arrow-btn arrow-right" onclick="navigateToLanguage({{ lang_num }})">›</button>
+    {% else %}
+    <button class="submit-btn" onclick="finalSubmit()">Завершить</button>
+    {% endif %}
+</main>
+
+<script>
+// Auto-save when leaving a field
+document.querySelectorAll('input').forEach(input => {
+    input.addEventListener('blur', saveAnswers);
+});
+
+// Navigation between languages
+function navigateToLanguage(idx) {
+    saveAnswers().then(() => {
+        window.location.href = `{{ url_for('test_mode.show_question') }}?move_to=${idx}`;
+    });
+}
+
+// Save answers via AJAX
+function saveAnswers() {
+    return fetch("{{ url_for('test_mode.save_answer') }}", {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams(new FormData(document.getElementById('language-form')))
+    });
+}
+
+// Final submission
+function finalSubmit() {
+    saveAnswers().then(() => {
+        fetch("{{ url_for('test_mode.final_submit') }}", {
+            method: "POST",
+            body: new FormData(document.getElementById('language-form'))
+        }).then(() => {
+            window.location.href = "{{ url_for('test_mode.show_results') }}";
+        });
+    });
+}
+</script>
+
+<style>
+/* Form styles from test-mode-center */
+.form-container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    max-width: 700px;
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+label {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+.hint {
+    color: #888;
+    font-weight: normal;
+}
+
+input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 20px !important;
+    font-size: 16px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    outline: none;
+    border-color: #A9A9A9;
+}
+
+/* Navigation tabs */
+.language-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 20px auto;
+    max-width: 700px;
+}
+
+.lang-tab {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    color: #333;
+}
+
+.lang-tab.active {
+    background-color: #4CAF50;
+    color: white;
+    border-color: #4CAF50;
+}
+
+/* Arrow buttons (exact from template) */
+.arrow-btn {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 55px;
+    height: 55px;
+    background: #A9A9A9;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 33px;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.arrow-left {
+    left: 40px;
+}
+
+.arrow-right {
+    right: 40px;
+}
+
+.arrow-btn:hover {
+    background: #808080;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.submit-btn {
+    position: fixed;
+    right: 50px;
+    bottom: 30px;
+    padding: 12px 24px;
+    background-color: #42bd6d;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.submit-btn:hover {
+    background-color: #3aa862;
+}
+</style>
+{% endblock %}

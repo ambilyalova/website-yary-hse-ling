@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="result-card">
+        <h1 class="text-center mb-4">Ваш результат теста</h1>
+
+        <!-- Score display -->
+        <div class="score-display text-center mb-5">
+            <div class="score-circle mx-auto">
+                <span class="score-value">{{ total_score }}</span>
+                <span class="score-max">/10</span>
+            </div>
+            <h3 class="mt-3">
+                {% if total_score == 10 %}
+                Это дико
+                {% elif total_score >= 5 %}
+                Зачёт!
+                {% elif total_score >= 4 %}
+                Ещё немного оставалось :(
+                {% else %}
+                Можно флеш-карточки потыкать...
+                {% endif %}
+            </h3>
+        </div>
+
+        <!-- Detailed results -->
+        <div class="detailed-results">
+            <h4 class="mb-4">Подробные результаты:</h4>
+
+            {% for result in results %}
+            <div class="lang-result mb-4 p-3 {% if result.is_correct %}correct{% else %}incorrect{% endif %}">
+                <h5>{{ result.lang_name }}</h5>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <p><strong>Ваш ответ:</strong></p>
+                        <ul>
+                            {% if result.user_answer.macrofamily %}
+                            <li>Макросемья: {{ result.user_answer.macrofamily }}</li>
+                            {% endif %}
+                            {% if result.user_answer.family %}
+                            <li>Семья: {{ result.user_answer.family }}</li>
+                            {% endif %}
+                            {% if result.user_answer.branch %}
+                            <li>Ветвь: {{ result.user_answer.branch }}</li>
+                            {% endif %}
+                            {% if result.user_answer.group %}
+                            <li>Группа: {{ result.user_answer.group }}</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+
+                    <div class="col-md-6">
+                        <p><strong>Правильный ответ:</strong></p>
+                        <ul>
+                            {% if result.correct_answer.macrofamily %}
+                            <li>Макросемья: {{ result.correct_answer.macrofamily }}</li>
+                            {% endif %}
+                            {% if result.correct_answer.family %}
+                            <li>Семья: {{ result.correct_answer.family }}</li>
+                            {% endif %}
+                            {% if result.correct_answer.branch %}
+                            <li>Ветвь: {{ result.correct_answer.branch }}</li>
+                            {% endif %}
+                            {% if result.correct_answer.group %}
+                            <li>Группа: {{ result.correct_answer.group }}</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="result-verdict">
+                    {% if result.is_correct %}
+                    <span class="correct-icon">✓ Верно (1 балл)</span>
+                    {% else %}
+                    <span class="incorrect-icon">✗ Неверно (0 баллов)</span>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center mt-5 d-flex justify-content-center gap-3 flex-wrap">
+            <a href="#" class="btn btn-secondary btn-lg">Вернуться на главную</a>
+            <a href="{{ url_for('test_mode.start_test') }}" class="btn btn-primary btn-lg">Пройти тест снова</a>
+        </div>
+
+    </div>
+</div>
+
+<style>
+.result-card {
+    background: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+.score-display {
+    padding: 20px;
+    border-radius: 10px;
+    background: #f8f9fa;
+}
+.score-circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: #4CAF50;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    margin: 0 auto;
+}
+.score-value {
+    font-size: 48px;
+    font-weight: bold;
+    line-height: 1;
+}
+.score-max {
+    font-size: 24px;
+}
+.lang-result {
+    border-radius: 8px;
+    border-left: 5px solid;
+}
+.lang-result.correct {
+    background-color: #e8f5e9;
+    border-left-color: #4CAF50;
+}
+.lang-result.incorrect {
+    background-color: #ffebee;
+    border-left-color: #f44336;
+}
+.correct-icon {
+    color: #4CAF50;
+    font-weight: bold;
+}
+.incorrect-icon {
+    color: #f44336;
+    font-weight: bold;
+}
+.result-verdict {
+    margin-top: 10px;
+    font-size: 18px;
+}
+</style>
+{% endblock %}
