@@ -39,5 +39,4 @@ class TestResult(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     score = db.Column(db.Integer, nullable=False)
     date = db.Column(db.Date, default=date.today)
-
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
