@@ -4,6 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, current_user
 from flask_migrate import Migrate, migrate
 from app.auth.routes import auth
+from app.flashcards.routes import flashcards
 from app.db_models import db, User
 from app.profile.routes import profile
 
@@ -39,6 +40,7 @@ def create_app():
     register_routes(db, bcrypt)
 
     app.register_blueprint(auth, url_prefix='/auth')
+    app.register_blueprint(flashcards, url_prefix='/flashcards')
 
     from app.profile.routes import register_routes
     register_routes()
