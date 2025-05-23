@@ -2,11 +2,14 @@
 
 {% block content %}
 <main style="flex-grow: 1; display: flex; flex-direction: column; overflow: auto; padding: 20px 0;">
+
+    <!-- название текущего языка -->
     <h2 style="text-align: center;">{{ lang_name }}</h2>
 
+    <!-- форма для ответов -->
     <div class="form-container">
         <form id="language-form">
-            <!-- Macrofamily -->
+            <!-- макросемья -->
             <div class="input-group">
                 <label for="macrofamily">
                     макросемья <span class="hint">(если есть)</span>
@@ -15,7 +18,7 @@
                        value="{{ saved_answers.macrofamily or '' }}">
             </div>
 
-            <!-- Family -->
+            <!-- семья -->
             <div class="input-group">
                 <label for="family">
                     семья <span class="hint">(или изолят)</span>
@@ -24,7 +27,7 @@
                        value="{{ saved_answers.family or '' }}">
             </div>
 
-            <!-- Branch -->
+            <!-- ветка -->
             <div class="input-group">
                 <label for="branch">
                     ветвь <span class="hint">(если есть)</span>
@@ -33,7 +36,7 @@
                        value="{{ saved_answers.branch or '' }}">
             </div>
 
-            <!-- Group -->
+            <!-- группа -->
             <div class="input-group">
                 <label for="group">
                     группа <span class="hint">(если есть)</span>
@@ -44,7 +47,7 @@
         </form>
     </div>
 
-    <!-- Navigation tabs -->
+    <!-- кнопки навигации снизу -->
     <div class="language-nav">
         {% for i in range(total_langs) %}
         <a href="#" class="lang-tab {% if i == lang_num - 1 %}active{% endif %}"
@@ -54,7 +57,7 @@
         {% endfor %}
     </div>
 
-    <!-- Navigation buttons (fixed position like in template) -->
+    <!-- стрелки для перехода и кнопка завершить в конце -->
     {% if lang_num > 1 %}
     <button class="arrow-btn arrow-left" onclick="navigateToLanguage({{ lang_num - 2 }})">‹</button>
     {% endif %}
@@ -67,19 +70,19 @@
 </main>
 
 <script>
-// Auto-save when leaving a field
+// автосохранение ответов при покидании поля
 document.querySelectorAll('input').forEach(input => {
     input.addEventListener('blur', saveAnswers);
 });
 
-// Navigation between languages
+// навигация между языками, содержит move_to
 function navigateToLanguage(idx) {
     saveAnswers().then(() => {
         window.location.href = `{{ url_for('test_mode.show_question') }}?move_to=${idx}`;
     });
 }
 
-// Save answers via AJAX
+// сохранение ответов с AJAX
 function saveAnswers() {
     return fetch("{{ url_for('test_mode.save_answer') }}", {
         method: "POST",
@@ -90,7 +93,7 @@ function saveAnswers() {
     });
 }
 
-// Final submission
+// переход к результатам с сохранением ответов
 function finalSubmit() {
     saveAnswers().then(() => {
         fetch("{{ url_for('test_mode.final_submit') }}", {
@@ -104,7 +107,6 @@ function finalSubmit() {
 </script>
 
 <style>
-/* Form styles from test-mode-center */
 .form-container {
     margin-left: auto;
     margin-right: auto;
@@ -148,7 +150,6 @@ input:focus {
     border-color: #A9A9A9;
 }
 
-/* Navigation tabs */
 .language-nav {
     display: flex;
     justify-content: center;
@@ -174,7 +175,6 @@ input:focus {
     border-color: #4CAF50;
 }
 
-/* Arrow buttons (exact from template) */
 .arrow-btn {
     position: fixed;
     top: 50%;
