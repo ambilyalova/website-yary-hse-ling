@@ -5,7 +5,7 @@
     <div class="result-card">
         <h1 class="text-center mb-4">Ваш результат теста</h1>
 
-        <!-- Score display -->
+        <!-- отображение счёта -->
         <div class="score-display text-center mb-5">
             <div class="score-circle mx-auto">
                 <span class="score-value">{{ total_score }}</span>
@@ -24,15 +24,17 @@
             </h3>
         </div>
 
-        <!-- Detailed results -->
+        <!-- подробные результаты -->
         <div class="detailed-results">
             <h4 class="mb-4">Подробные результаты:</h4>
-
+            
+        <!-- цикл для прогона по всем вопросам -->
             {% for result in results %}
             <div class="lang-result mb-4 p-3 {% if result.is_correct %}correct{% else %}incorrect{% endif %}">
                 <h5>{{ result.lang_name }}</h5>
 
                 <div class="row">
+                    <!-- ответы пользователя -->
                     <div class="col-md-6">
                         <p><strong>Ваш ответ:</strong></p>
                         <ul>
@@ -51,6 +53,7 @@
                         </ul>
                     </div>
 
+                    <!-- правильные ответы -->
                     <div class="col-md-6">
                         <p><strong>Правильный ответ:</strong></p>
                         <ul>
@@ -70,6 +73,7 @@
                     </div>
                 </div>
 
+                <!-- смешные иконки снизу -->
                 <div class="result-verdict">
                     {% if result.is_correct %}
                     <span class="correct-icon">✓ Верно (1 балл)</span>
@@ -81,6 +85,7 @@
             {% endfor %}
         </div>
 
+        <!-- кнопки внизу с переходом на главную и тест заново -->
         <div class="text-center mt-5 d-flex justify-content-center gap-3 flex-wrap">
             <a href="#" class="btn btn-secondary btn-lg">Вернуться на главную</a>
             <a href="{{ url_for('test_mode.start_test') }}" class="btn btn-primary btn-lg">Пройти тест снова</a>
