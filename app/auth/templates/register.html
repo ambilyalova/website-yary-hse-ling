@@ -88,17 +88,17 @@
         <main>
             <h1 style="text-align: center;">Регистрация</h1>
             <form action="{{ url_for('auth.register') }}" method="POST" class="form-container">
-                <!-- Поле 1 -->
+                <!-- Им пользователч -->
                 <div class="input-group mb-3">
                     <label for="username">Имя пользователя:</label>
                     <input type="text" id="username" name="username" placeholder="Введите имя" required>
                 </div>
-                <!-- Поле 2 -->
+                <!-- Почта -->
                 <div class="input-group mb-3">
                     <label for="email">Email:</label>
                     <input type="email" id="email" name="email" placeholder="Введите email" required>
                 </div>
-                <!-- Поле 3 -->
+                <!-- Пароль -->
                 <div class="input-group">
                     <label for="password">Пароль:</label>
                     <input type="password" id="password" name="password" placeholder="Придумайте пароль" required minlength="6">
@@ -121,7 +121,7 @@
             const passwordInput = document.getElementById('password');
             const loginBtn = document.getElementById('loginBtn');
 
-            // Функция проверки заполненности полей
+            // Проверка заполненности полей
             function checkInputs() {
                 const usernameFilled = usernameInput.value.trim() !== '';
                 const emailFilled = emailInput.value.trim() !== '';
