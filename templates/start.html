@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <strong>Важно!</strong> Если у языка нет макросемьи/ветви/т.д., оставьте поле пустым. Разделение славянских
+                языков на восточные, западные и южные не учитывается. Если язык является изолятом,
+                впишите слово "изоляты" в поле для семьи. Пишите названия полностью, "семитская семья", а не просто "семитская".
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
+<div class="container text-center mt-5">
+    <p class="lead mt-3">Ого, совсем как на паре!</p>
+
+    <div class="instruction-card">
+        <div class="card-body">
+            <h4 class="card-title">Инструкция</h4>
+            <p class="card-text">
+                Вам будет представлено 10 языков.
+                Для каждого языка нужно указать:
+            </p>
+            <div class="centered-list">
+                <div>Макросемью <span class="hint">(если есть)</span></div>
+                <div>Семью <span class="hint">(или изоляты)</span></div>
+                <div>Ветвь <span class="hint">(если есть)</span></div>
+                <div>Группу <span class="hint">(если есть)</span></div>
+            </div>
+            <a href="{{ url_for('test_mode.start_test') }}" class="btn btn-primary btn-lg mt-3">Начать тест</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<style>
+        .instruction-card {
+        margin-left: auto;
+        margin-right: auto;
+        background-color: white;
+        border: 2px solid #818181;
+        border-radius: 80px;
+        padding: 50px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 500px;
+        width: 100%;
+    }
+
+    .instruction-card .card-body {
+        padding: 0; /* Убираем внутренние отступы bootstrap */
+    }
+
+    .instruction-card .card-title {
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        color: #333;
+    }
+
+    .card-text {
+        margin-bottom: 1rem;
+        color: #555;
+        text-align: center;
+    }
+
+    .centered-list {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        margin: 1rem 0;
+        padding: 0;
+        text-align: center;
+    }
+
+    .centered-list div {
+        display: block;
+    }
+    /* Стили модального окна из вашего оригинального файла */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+        display: none; /* По умолчанию скрыто */
+    }
+
+    .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        max-width: 500px;
+        width: 90%;
+        position: relative;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 20px;
+        cursor: pointer;
+        background: none;
+        border: none;
+        color: #777;
+    }
+
+    .close-btn:hover {
+        color: #333;
+    }
+
+
+    .modal-text {
+        margin-bottom: 20px;
+        color: #555;
+        line-height: 1.5;
+    }
+
+    .ok-btn {
+        background-color: #42bd6d;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .ok-btn:hover {
+        background-color: #45a049;
+    }
+
+    .hint {
+        color: #888;
+        font-weight: normal;
+        .modal-title {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #333;
+        }
+</style>
+{% endblock %}
