@@ -116,7 +116,7 @@
             <h1 style="text-align: center;">Авторизация</h1>
 
 
-            <form action="{{ url_for('login') }}" method="POST" class="form-container">
+            <form id="loginForm" action="{{ url_for('auth.login') }}" method="POST" class="form-container">
                 <!-- Поле 1 -->
                 <div class="input-group mb-3">
                     <label for="username">Имя пользователя/email:</label>
@@ -133,7 +133,7 @@
                 </div>
                 <!-- Ссылка на регистрацию -->
                 <div style="text-align: center; margin-top: 15px;">
-                    Нет аккаунта? <a href="{{ url_for('register') }}" style="color: #4CAF50;">Зарегистрируйтесь</a>
+                    Нет аккаунта? <a href="{{ url_for('auth.register') }}" style="color: #4CAF50;">Зарегистрируйтесь</a>
                 </div>
             </form>
             <!-- Ссылка "Забыли пароль" -->

@@ -1,13 +1,14 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, Blueprint
 from flask_login import login_user, logout_user
+from sqlalchemy import or_
 
-from db_models import User
-def register_routes(app, db, bcrypt):
-    @app.route('/')
-    def index():
-        return render_template('main_page.html')
+from app.db_models import User
 
-    @app.route('/register', methods=['GET', 'POST'])
+auth = Blueprint('auth', __name__, template_folder='templates')
+
+
+def register_routes(db, bcrypt):
+    @auth.route('/register', methods=['GET', 'POST'])
     def register():
         if request.method == 'GET':
             return render_template('register.html')
@@ -21,10 +22,10 @@ def register_routes(app, db, bcrypt):
             user = User(username=username, email=email, password=hashed_password)
             db.session.add(user)
             db.session.commit()
-
+            login_user(user)
             return redirect(url_for('index'))
 
-    @app.route('/login', methods=['GET', 'POST'])
+    @auth.route('/login', methods=['GET', 'POST'])
     def login():
         if request.method == 'GET':
             return render_template('login.html')
@@ -32,14 +33,17 @@ def register_routes(app, db, bcrypt):
             username = request.form.get('username')
             password = request.form.get('password')
 
-            user = User.query.filter(username=username).first()
+            user = User.query.filter(
+                or_(User.username == username, User.email == username)
+            ).first()
 
             if bcrypt.check_password_hash(user.password, password):
                 login_user(user)
                 return redirect(url_for('index'))
             else:
                 return 'Login Failed'
-    @app.route('/logout')
+
+    @auth.route('/logout')
     def logout():
         logout_user()
         return redirect(url_for('index'))
