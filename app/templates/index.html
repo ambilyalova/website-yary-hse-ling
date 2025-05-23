@@ -64,7 +64,10 @@
         <h4 class="ms-4">Генеалогия для ЯРов</h4>
         <div class="d-flex gap-2 me-4">
             {% if current_user.is_authenticated %}
-                <i class="fas fa-user-circle"></i> Профиль
+                <a class="btn btn-light" href="{{ url_for('profile.profile_page') }}">Профиль</a>
+                <img src="https://imgs.search.brave.com/BuaamHROpUtTh7copm1l2C6ZZp1KIDAp7B-GJJipp1Q/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9pbWdz/LnNlYXJjaC5icmF2/ZS5jb20vZ0VmOW1s/NHpnaHlBemxUc09w/SFlRV1ZCeWU2dFVh/VkJIVnp6cS1tTkgx/Zy9yczpmaXQ6NTAw/OjA6MDowL2c6Y2Uv/YUhSMGNITTZMeTl0/WldScC9ZUzVwYzNS/dlkydHdhRzkwL2J5/NWpiMjB2YVdRdk1U/UTEvTVRVNE56Z3dO/eTl5ZFM4bC9SREFs/UWpJbFJEQWxRalVs/L1JEQWxRa0VsUkRF/bE9ESWwvUkRBbFFr/VWxSREVsT0RBbC9S/REFsUWtRbFJEQWxR/akFsL1JERWxPRVl2/SlVRd0pVSXkvSlVR/d0pVSTFKVVF3SlVK/Qi9KVVF4SlRneUpV/UXdKVUpGL0pVUXhK/VGd3TFNWRU1DVkMv/TnlWRU1DVkNSQ1ZF/TUNWQy9NQ1ZFTVNV/NE55VkVNQ1ZDL1FT/VkVNQ1ZDTUMwbFJE/QWwvUWtZbFJERWxP/REFsUkRBbC9Ra1Vs/UkRFbE9EUWxSREFs/L1FqZ2xSREFsUWtJ/bFJERWwvT0VZdEpV/UXdKVUpHSlVRdy9K/VUpGSlVRd0pVSkNK/VVF4L0pUaERKVVF3/SlVJM0pVUXcvSlVK/RkpVUXdKVUl5SlVR/dy9KVUl3SlVReEpU/Z3lKVVF3L0pVSTFK/VVF3SlVKQ0pVUXgv/SlRoR0xTVkVNQ1ZD/TUNWRS9NQ1ZDTWlW/RU1DVkNNQ1ZFL01T/VTRNaVZFTUNWQ01D/VkUvTVNVNE1DMGxS/REFsUWpnbC9SREFs/UWtJbFJEQWxRamd0/L0pVUXdKVUkzSlVR/d0pVSkUvSlVRd0pV/SXdKVVF4SlRnMy9K/VVF3SlVKRkpVUXdK/VUpCL0xTVkVNU1U0/TnlWRU1DVkMvTlNW/RU1DVkNRaVZFTUNW/Qy9SU1ZFTUNWQ01p/VkVNQ1ZDL05TVkVN/Q1ZDUVNWRU1DVkMv/TUMwbFJERWxPRFFs/UkRBbC9Ra1VsUkRF/bE9ESWxSREFsL1Fr/VWxSREFsUWpNbFJE/RWwvT0RBbFJEQWxR/akFsUkRFbC9PRFFs/UkRBbFFqZ2xSREVs/L09FWXRKVVF3SlVK/R0pVUXgvSlRnd0pV/UXdKVUpGSlVReC9K/VGcwSlVRd0pVSTRK/VVF3L0pVSkNKVVF4/SlRoR0xtcHcvWno5/elBUWXhNbmcyTVRJ/bS9kejB3Sm1zOU1q/QW1ZejAyL1YzUTNk/RlphYVRJd2FWUkgv/YkRkUmVrOUZhbnBr/VjNwdS9hV2N6VFVR/MVNWbHpPWGR2L1Zr/STVXVzlCUFE"
+                alt="Profile Icon"
+                style="width: 45px; height: 45px; object-fit: contain;">
             {% else %}
             <a class="btn btn-success" href="{{ url_for('auth.register') }}">Зарегистрироваться</a>
             <a class="btn btn-light" href="{{ url_for('auth.login') }}">Войти</a>

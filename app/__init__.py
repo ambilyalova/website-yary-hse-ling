@@ -6,6 +6,7 @@ from flask_migrate import Migrate, migrate
 from app.auth.routes import auth
 from app.flashcards.routes import flashcards
 from app.db_models import db, User
+from app.profile.routes import profile
 
 
 def create_app():
@@ -40,6 +41,11 @@ def create_app():
 
     app.register_blueprint(auth, url_prefix='/auth')
     app.register_blueprint(flashcards, url_prefix='/flashcards')
+
+    from app.profile.routes import register_routes
+    register_routes()
+
+    app.register_blueprint(profile, url_prefix='/profile')
 
     @app.route('/')
     def index():
