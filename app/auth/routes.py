@@ -8,23 +8,26 @@ auth = Blueprint('auth', __name__, template_folder='templates')
 
 
 def register_routes(db, bcrypt):
+    # Регистрациф
     @auth.route('/register', methods=['GET', 'POST'])
     def register():
         if request.method == 'GET':
             return render_template('register.html')
-        elif request.method == 'POST':
+        elif request.method == 'POST': # Получение данных
             username = request.form.get('username')
             email = request.form.get('email')
             password = request.form.get('password')
 
-            hashed_password = bcrypt.generate_password_hash(password)
+            hashed_password = bcrypt.generate_password_hash(password) # Хэширование
 
+            # Добваление пользователя в бд
             user = User(username=username, email=email, password=hashed_password)
             db.session.add(user)
             db.session.commit()
             login_user(user)
             return redirect(url_for('index'))
 
+    # Вход в профиль
     @auth.route('/login', methods=['GET', 'POST'])
     def login():
         if request.method == 'GET':
@@ -43,6 +46,7 @@ def register_routes(db, bcrypt):
             else:
                 return 'Login Failed'
 
+    # Выход из профиля
     @auth.route('/logout')
     def logout():
         logout_user()
