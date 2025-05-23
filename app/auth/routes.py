@@ -8,7 +8,7 @@ auth = Blueprint('auth', __name__, template_folder='templates')
 
 
 def register_routes(db, bcrypt):
-    # Регистрациф
+    # Регистрация
     @auth.route('/register', methods=['GET', 'POST'])
     def register():
         if request.method == 'GET':
