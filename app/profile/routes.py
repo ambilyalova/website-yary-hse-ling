@@ -23,5 +23,5 @@ def register_routes():
                     int(score)  # Ensure score is integer
                 ])
         results.reverse()
-        average = round(current_user.total_score / current_user.tests_taken, 2)
+        average = round(User.get_average_score(current_user), 2)
         return render_template('profile.html', username=username, email=email, result=results, average=average)

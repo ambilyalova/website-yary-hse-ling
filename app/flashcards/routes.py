@@ -9,7 +9,7 @@ flashcards = Blueprint('flashcards', __name__, template_folder='templates/flashc
 
 @flashcards.route('/')
 def index():
-    return render_template('flashcards/flashcards-menu.html')
+    return render_template('flashcards-menu.html')
 
 @flashcards.route('/indoeu')
 def flashcards_indoeu():
