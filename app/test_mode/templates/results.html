@@ -87,7 +87,7 @@
 
         <!-- кнопки внизу с переходом на главную и тест заново -->
         <div class="text-center mt-5 d-flex justify-content-center gap-3 flex-wrap">
-            <a href="#" class="btn btn-secondary btn-lg">Вернуться на главную</a>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary btn-lg">Вернуться на главную</a>
             <a href="{{ url_for('test_mode.start_test') }}" class="btn btn-primary btn-lg">Пройти тест снова</a>
         </div>
 
