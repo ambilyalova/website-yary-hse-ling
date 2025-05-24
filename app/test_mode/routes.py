@@ -3,6 +3,8 @@ from datetime import date
 from pathlib import Path
 import json
 import random
+from flask_login import current_user
+from app.db_models import User, TestResult, db
 
 test_mode = Blueprint('test_mode', __name__, template_folder='templates')
 
@@ -30,7 +32,10 @@ def home():
 # генерит 10 языков и начинает сессии для языков и ответов пользователя
 @test_mode.route('/start_test')
 def start_test():
-    session.clear()
+    #очищает прошлую сессию (сохраняя пользователя)
+    for key in list(session.keys()):
+        if key in ['test_languages', 'current_language', 'user_answers', 'result_saved']:
+            session.pop(key)
     test_languages = get_random_languages(10)
     session['test_languages'] = test_languages
     session['current_language'] = 0
@@ -87,7 +92,19 @@ def save_answer():
 # сохраняет ответ на последний вопрос перед результатами
 @test_mode.route('/final_submit', methods=['POST'])
 def final_submit():
-    save_answer()  
+
+    current_idx = session.get('current_language', 0)
+    form_data = request.form
+
+    user_answers = session.get('user_answers', {})
+    user_answers[str(current_idx)] = {
+        'macrofamily': normalize_answer(form_data.get('macrofamily')),
+        'family': normalize_answer(form_data.get('family')),
+        'branch': normalize_answer(form_data.get('branch')),
+        'group': normalize_answer(form_data.get('group'))
+    }
+    session['user_answers'] = user_answers
+
     return redirect(url_for('test_mode.show_results'))
 
 # обработка результатов
@@ -125,6 +142,19 @@ def show_results():
             'is_correct': all_correct,
             'lang_score': lang_score
         })
+
+    # сохранение результат в БД, если пользователь авторизован и результат ещё не сохранён
+    if current_user.is_authenticated and not session.get('result_saved'):
+        test_result = TestResult(
+            user_id=current_user.id,
+            score=total_score,
+            date=date.today()
+        )
+        db.session.add(test_result)
+        db.session.commit()
+
+        # ставим флаг
+        session['result_saved'] = True
 
     # переход на страницу с результатами
     return render_template('results.html',
