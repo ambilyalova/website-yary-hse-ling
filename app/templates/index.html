@@ -13,7 +13,7 @@
             margin: 0;
             overflow: hidden;
         }
-
+	<!--Размер кнопок режимов-->
         .custom-size {
             display: flex;
             align-items: center;
@@ -22,7 +22,7 @@
             height: 400px;
             margin: 10px;
         }
-
+	<!--Размер кнопки-ссылки на генеалогию-->
         .custom-size2 {
             display: flex;
             align-items: center;
@@ -33,29 +33,24 @@
         }
 
         header {
-            flex-shrink: 0; /* Запрещаем сжатие шапки */
+            flex-shrink: 0;
         }
 
         main {
-            flex-grow: 1; /* Занимаем все доступное пространство */
+            flex-grow: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            overflow: auto; /* Добавляем скролл только для основного содержимого */
+            overflow: auto;
             padding: 20px 0;
         }
-
+	<!--Положение кнопок режимов-->
         .buttons-container {
             display: flex;
             justify-content: center;
             flex-wrap: wrap;
         }
 
-        .toast {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-        }
     </style>
 </head>
 <body>
@@ -81,46 +76,16 @@
 </header>
 
 <main>
+	<!-- Кнопки режимов-->
     <div class="buttons-container">
         <a class="btn btn-light custom-size fs-1" href="{{ url_for('flashcards.index') }}" role="button">Флэшкарточки</a>
         <a class="btn btn-light custom-size fs-1" href="{{ url_for('test_mode.home') }}" role="button">Режим "Тестовый"</a>
         <a class="btn btn-light custom-size fs-1" href="#" role="button">Режим "Схемы"</a>
     </div>
+	<!-- Кнопка-ссылка на полную генеалогию-->
 	<div class="d-flex justify-content-center" style="position: relative; top: 20px">
-		<a class="btn btn-light custom-size2 fs-2" href="https://miro.com/app/board/uXjVLcnJr4k=/?share_link_id=999051421174" role="button">Ссылка на генеологию</a>
+		<a class="btn btn-light custom-size2 fs-2" href="https://miro.com/app/board/uXjVLcnJr4k=/?share_link_id=999051421174" role="button">Ссылка на генеалогию</a>
 	</div>
-
-
-<!--    <div class="toast show" role="alert" aria-live="assertive" aria-atomic="true">-->
-<!--        <div class="toast-body">-->
-<!--            Хотите сохранить результат? Зарегистрируйтесь!-->
-<!--            <div class="mt-2 pt-2 border-top">-->
-<!--                <a class="btn btn-primary btn-sm" href="#" role="button">Войти в аккаунт</a>-->
-<!--                <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="toast">Войти как гость</button>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
 </main>
-
-<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>-->
-<!--<script>-->
-<!--    document.addEventListener('DOMContentLoaded', function() {-->
-<!--        var toastEl = document.querySelector('.toast');-->
-<!--        var toast = new bootstrap.Toast(toastEl, {-->
-<!--autohide: false, // Отключаем автоматическое скрытие-->
-<!--delay: false    // Отключаем задержку-->
-<!--});-->
-<!--        toast.show();-->
-
-<!--        // Динамическая подгонка высоты при изменении размера окна-->
-<!--        function adjustLayout() {-->
-<!--            const vh = window.innerHeight * 0.01;-->
-<!--            document.documentElement.style.setProperty('&#45;&#45;vh', `${vh}px`);-->
-<!--        }-->
-
-<!--        window.addEventListener('resize', adjustLayout);-->
-<!--        adjustLayout();-->
-<!--    });-->
-<!--</script>-->
 </body>
 </html>
