@@ -14,7 +14,7 @@ def create_app():
     app = Flask(__name__, template_folder='templates')
 
     username = "adeliysw_yaryhse"
-    password = "RKtLWr4NZHbp"
+    password = "rqOIpW4SagXh"
     db_name = "adeliysw_yaryhse"
 
     app.config[
